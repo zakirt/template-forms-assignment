@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form #f="ngForm" (submit)="onSubmit(f)">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input 
+            type="email" 
+            class="form-control" 
+            id="email"          
+            name="email"
+            ngModel
+            #email="ngModel"
+            required
+            email>
+            <span class="help-block" *ngIf="!email.valid && email.touched">
+              Please enter a valid email
+            </span>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input 
+            type="text" 
+            class="form-control" 
+            id="password"            
+            name="password"
+            ngModel
+            #password="ngModel"
+            required>
+            <span class="help-block" *ngIf="!password.valid && password.touched">
+              Please enter password
+            </span>
+        </div>
+        <div class="form-group">
+          <select 
+            class="form-group" 
+            [ngModel]="defaultSubscription" 
+            name="subscriptionType"
+            required>
+            <option *ngFor="let subscription of subscriptions" [value]="subscription">
+              {{subscription}}
+            </option>
+          </select>
+        </div>
+        <p><button class="btn btn-primary" type="submit" [disabled]="!f.valid">Submit</button></p>
+      </form>      
+    </div>
+  </div>
+  <div class="row" *ngIf="formSubmitted">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <div class="panel panel-default">
+        <div class="panel-heading">Submitted data</div>
+        <div class="panel-body">
+          <p>Email: {{signupData.email}}</p>
+          <p>Password: {{signupData.password}}</p>
+          <p>Subscription Type: {{signupData.subscription}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add a Form with the following Inputs (and Validators)
+           1) Mail address (should not be empty and should be an email address)
+           2) A Dropdown which allows the user to select from three different Subscriptions ("Basic", "Advanced", "Pro")
+              Set "Advanced" as Default
+           3) A Password field (should not be empty)
+           4) A Submit Button
+
+           Display a warning message if the Form is invalid AND was touched. Display a warning message below each input if it's invalid.
+
+           Upon submitting the form, you should simply print the Value of the Form to the Console.
+           Optionally, display it in your template.
+      -->
